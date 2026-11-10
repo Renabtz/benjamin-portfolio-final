@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Academic Planner | Benjamin James</title>
+  <meta name="description" content="An interactive academic planner: add tasks, mark them complete, delete them and track your progress.">
+  <meta name="theme-color" content="#0a1128">
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self' data: blob:; form-action 'self'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/images/benjamin-small.jpg" type="image/jpeg">
+
+  <script src="js/main.js" defer></script>
+  <script src="js/planner.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ================= NAVIGATION ================= -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="logo" aria-label="Benjamin James, home">
+        <span class="logo__mark">BJ</span>
+        <span class="logo__text">Benjamin James</span>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="planner.html">Planner</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark and light theme" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="page-header">
+      <div class="container">
+        <ol class="breadcrumb" aria-label="Breadcrumb">
+          <li><a href="index.html">Home</a></li>
+          <li aria-current="page">Planner</li>
+        </ol>
+        <span class="eyebrow">// Academic planner</span>
+        <h1>Plan it. Do it. <span class="gradient-text">Tick it off.</span></h1>
+        <p>
+          A working task manager for my studies. Add assignments and study sessions, mark them
+          complete, delete them and watch your progress grow. Your tasks are saved in this browser.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= PLANNER ================= -->
+    <section class="section" aria-label="Academic planner">
+      <div class="container planner-layout">
+
+        <!-- ---------- Add-task form ---------- -->
+        <aside class="card planner-form reveal">
+          <h2>Add a task</h2>
+
+          <form id="task-form" class="form" novalidate>
+            <div class="field" id="field-title">
+              <label for="task-title">Task <span class="hint">(required)</span></label>
+              <input class="input" id="task-title" name="title" type="text" maxlength="100" autocomplete="off"
+                     placeholder="e.g. Finish Python assignment" aria-describedby="task-error">
+              <p class="field__error" id="task-error" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="task-course">Course <span class="hint">(optional)</span></label>
+              <input class="input" id="task-course" name="course" type="text" maxlength="30" list="course-list"
+                     placeholder="e.g. CSC 102" autocomplete="off">
+              <datalist id="course-list">
+                <option value="CYB 102">
+                <option value="CSC 102">
+                <option value="CSC 104">
+                <option value="CYB 104">
+                <option value="MTH 102">
+                <option value="GST 102">
+              </datalist>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="task-due">Due date</label>
+                <input class="input" id="task-due" name="due" type="date">
+              </div>
+              <div class="field">
+                <label for="task-priority">Priority</label>
+                <select class="input" id="task-priority" name="priority">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn--primary" type="submit">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              Add task
+            </button>
+          </form>
+        </aside>
+
+        <!-- ---------- Summary + list ---------- -->
+        <div>
+          <div class="planner-summary">
+            <div class="card mini-stat reveal"><strong id="stat-total">0</strong><span>Total</span></div>
+            <div class="card mini-stat mini-stat--done reveal" data-delay="1"><strong id="stat-done">0</strong><span>Completed</span></div>
+            <div class="card mini-stat mini-stat--todo reveal" data-delay="2"><strong id="stat-todo">0</strong><span>Pending</span></div>
+          </div>
+
+          <div class="card reveal">
+            <div class="progress__top"><span>Overall progress</span><span id="progress-text">0%</span></div>
+            <div class="progress__track" role="progressbar" aria-label="Task completion progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
+              <div class="progress__fill" id="progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <div class="filters" role="group" aria-label="Filter tasks">
+              <button class="chip active" type="button" data-filter="all" aria-pressed="true">All</button>
+              <button class="chip" type="button" data-filter="active" aria-pressed="false">Pending</button>
+              <button class="chip" type="button" data-filter="done" aria-pressed="false">Completed</button>
+            </div>
+            <button class="btn btn--outline btn--sm" type="button" id="clear-done">Clear completed</button>
+          </div>
+
+          <!-- Screen-reader announcements (e.g. "Task added") -->
+          <p class="sr-only" id="planner-status" role="status" aria-live="polite"></p>
+
+          <ul class="task-list" id="task-list" aria-label="Task list"></ul>
+          <p class="task-empty" id="task-empty" hidden>Nothing here yet. Add a task to get started.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Blueprint for one task row. planner.js clones this for every task. -->
+  <template id="task-template">
+    <li class="task">
+      <input type="checkbox" class="task__check">
+      <div>
+        <label class="task__title"></label>
+        <div class="task__meta">
+          <span class="badge"></span>
+          <span class="task__course"></span>
+          <span class="task__due"></span>
+        </div>
+      </div>
+      <button type="button" class="icon-btn icon-btn--danger task__delete">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg>
+      </button>
+    </li>
+  </template>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <a href="index.html" class="logo"><span class="logo__mark">BJ</span><span class="logo__text">Benjamin James</span></a>
+          <p class="mt-1 footer__blurb">Cyber Security student at Miva Open University, securing the connected systems that keep buildings running.</p>
+        </div>
+        <div>
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="planner.html">Planner</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="contact.html">Send a message</a></li>
+            <li><a href="mailto:b.james5664@miva.edu.ng">b.james5664@miva.edu.ng</a></li>
+            <li><a href="https://github.com/Renabtz" target="_blank" rel="noopener noreferrer">GitHub: Renabtz</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; <span id="year">2026</span> Benjamin James. All rights reserved.</span>
+        <span>Built with HTML, CSS &amp; JavaScript</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="icon-btn to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+  </button>
+
+</body>
+</html>
